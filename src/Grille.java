@@ -1,11 +1,10 @@
-
 public class Grille {
 	private Diamant[][] diamants;
-	private int nbrJoueur;
+	private Joueur[] joueur;
 	private boolean partieFinie;
 	
-	public Grille(int nbrJoueur,int ligne, int colonne){
-		this.nbrJoueur 		= nbrJoueur;
+	public Grille(Joueur[] joueur,int ligne, int colonne){
+		this.joueur 		= joueur;
 		
 		this.diamants = new Diamant[ligne][colonne];
 		for (int i=0;i<ligne;i++){
@@ -51,16 +50,16 @@ public class Grille {
 				Diamant diamant1=new Diamant(x1,y1);
 				diamants[x1][y1]=diamant1;
 			}
-			if (i<nbrJoueur){
+			if (i<joueur.length){
 				diamants[x][y].setContoled(diamants[x][y].getCouleur());
 			}
 		}
 		//System.out.println(player[1].getNom());
-		//affichergrille(diamants);
-		isPartieFinie();
+		afficherGrille();
+		//isPartieFinie();
 	}
 	
-	public static void affichergrille(Diamant diamants[][]){
+	public void afficherGrille(){
 		for (int i=0;i<diamants[0].length;i++){
 			for(int j=diamants.length-1;j>=0;j--){
 				char couleurdiamant=diamants[j][i].getCouleur();
@@ -80,10 +79,10 @@ public class Grille {
 	}
 
 	public boolean isPartieFinie() {
-		int nombreDiamants = diamants.length * diamants[0].length;
+		/*int nombreDiamants = diamants.length * diamants[0].length;
 		
-		for(int i = 0; i < nbrJoueur; i++) {
-			switch(nbrJoueur) {
+		for(int i = 0; i < joueur.length; i++) {
+			switch(joueur.length) {
 				case 2:
 					break;
 				
@@ -95,10 +94,68 @@ public class Grille {
 			}
 		}
 		
-		return partieFinie;
+		return partieFinie;*/return false;
 	}
 
 	public void setPartieFinie(boolean partieFinie) {
 		this.partieFinie = partieFinie;
+	}
+	
+	/**
+	 * 
+	 * Cette méthode définit l'état de la grille après un coup du joueur
+	 * 
+	 * @param color Choix de la couleur à jouer
+	 * @param indexJoueur le numéro du joueur actuel 
+	 * 
+	 * @return True si le coup est correct, False sinon
+	 * 
+	 */
+	
+	public boolean setCoup(String color, int indexJoueur) {
+		switch(color) {
+			case "r":
+				nextPos(color, indexJoueur + 1);
+				break;
+				
+			case "v":
+				nextPos(color, indexJoueur + 1);
+				break;
+			
+			case "o":
+				nextPos(color, indexJoueur + 1);
+				break;
+			
+			case "j":
+				nextPos(color, indexJoueur + 1);
+				break;
+			
+			case "b":
+				nextPos(color, indexJoueur + 1);
+				break;
+			
+			case "i":
+				nextPos(color, indexJoueur + 1);
+				break;
+			
+			default :
+				// Erreur de saisie
+				return false;
+		}
+		
+		return true;
+	}
+
+	private void nextPos(String color, int indexJoueur) {
+		switch (indexJoueur) {
+			// Joueur 1
+			case 1:
+				// bas à droite
+				break;
+			// Joueur 1
+			case 2:
+				// bas à gauche
+				break;
+		}
 	}
 }

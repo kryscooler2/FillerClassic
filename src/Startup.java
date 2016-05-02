@@ -1,6 +1,7 @@
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+
 public class Startup {
 	public static void main(String[] args){
 		versionConsole();
@@ -12,7 +13,7 @@ public class Startup {
 		int nbrjoueur = 0;
 		boolean continuer = true;
 		
-		System.out.println("******* Jeu des 6 couleurssss *******\n");
+		System.out.println("******* Jeu des 6 couleurs *******\n");
 		
 		while(continuer) {
 			System.out.println("Choisissez le nombre de joueurs :");
@@ -41,17 +42,32 @@ public class Startup {
 			player[i]=joueur;
 		}
 		
-		Grille grille1 = new Grille(nbrjoueur, 7, 7);
-		//grille1.affichergrille();
+		Grille grille1 = new Grille(player, 7, 7);
+		continuer = true;
+		
+		while(!grille1.isPartieFinie() && continuer){
+			for(int i = 0; i < nbrjoueur; i++) {
+				boolean correct;
+				do {
+					System.out.println("C'est à " + player[i].getNom() + " de jouer :");
+					correct = grille1.setCoup(sc2.nextLine(), i);
+					if(correct){
+						grille1.afficherGrille();					
+					}
+					
+					else {
+						System.out.println("La couleur que vous avez tapé n'est pas correcte.");
+					}
+				} while(!correct);
+			}
+		}
 		
 		/*for (int i=0;i<nbrjoueur;i++){
-			System.out.println("C'est ï¿½ "  + player[i].getNom() + " de jouer");
+			System.out.println("C'est à "  + player[i].getNom() + " de jouer");
 			sc2.nextLine();
 		}*/
-		
-		
+			
 		sc.close();
 		sc2.close();
 	}
-	
 }
