@@ -12,7 +12,7 @@ public class Startup {
 		int nbrjoueur = 0;
 		boolean continuer = true;
 		
-		System.out.println("******* Jeu des 6 couleurs *******\n");
+		System.out.println("******* Jeu des 6 couleurssss *******\n");
 		
 		while(continuer) {
 			System.out.println("Choisissez le nombre de joueurs :");
@@ -45,7 +45,7 @@ public class Startup {
 		//grille1.affichergrille();
 		
 		/*for (int i=0;i<nbrjoueur;i++){
-			System.out.println("C'est à "  + player[i].getNom() + " de jouer");
+			System.out.println("C'est ï¿½ "  + player[i].getNom() + " de jouer");
 			sc2.nextLine();
 		}*/
 		
