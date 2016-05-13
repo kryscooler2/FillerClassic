@@ -5,43 +5,65 @@ public class Grille {
 	
 	public Grille(Joueur[] joueur,int ligne, int colonne){
 		this.joueur 		= joueur;
-		
 		this.diamants = new Diamant[ligne][colonne];
+		char[] tmpPosCouleur = new char[4];
+		
 		for (int i=0;i<ligne;i++){
 			for (int j=0;j<colonne;j++){
 				Diamant diamant1 = new Diamant(i,j);
 				diamants[i][j] = diamant1;
 			}
 		}
-		for (int i=0;i<4;i++){//corrige les angles
+		for (int i=0;i<joueur.length;i++){//corrige les angles
 			int x=0;
 			int x1=0;
 			int y=0;
 			int y1=0;
 			switch (i){
 				case 0:
-					x=0;
-					x1=1;
-					y=colonne-1;
-					y1=colonne-2;
+					x=ligne-1;
+					x1=ligne-2;
+					y=0;
+					y1=1;
+					tmpPosCouleur[0] = diamants[x][y].getCouleur();
+					System.out.println("Case 0 :" + tmpPosCouleur[0]);
 					break;
 				case 1:
-					x=ligne-1;
-					x1=ligne-2;
-					y=0;
-					y1=1;
-					break;
-				case 2:
 					x=0;
 					x1=1;
-					y=0;
-					y1=1;
+					y=colonne-1;
+					y1=colonne-2;
+					tmpPosCouleur[1] = diamants[x][y].getCouleur();
+
+					while (tmpPosCouleur[0] == tmpPosCouleur[1]){
+						Diamant diamant=new Diamant(x,y);
+						diamants[x][y]=diamant;
+						tmpPosCouleur[1] = diamants[x][y].getCouleur();
+					}
 					break;
-				case 3:
+				case 2:
 					x=ligne-1;
 					x1=ligne-2;
 					y=colonne-1;
 					y1=colonne-2;
+					tmpPosCouleur[2] = diamants[x][y].getCouleur();
+					
+					while ((tmpPosCouleur[0] == tmpPosCouleur[2]) || (tmpPosCouleur[1] == tmpPosCouleur[2])){
+						Diamant diamant=new Diamant(x,y);
+						diamants[x][y]=diamant;
+					}
+					break;
+				case 3:
+					x=0;
+					x1=1;
+					y=0;
+					y1=1;
+					tmpPosCouleur[3] = diamants[x][y].getCouleur();
+					
+					while ((tmpPosCouleur[0] == tmpPosCouleur[3]) || (tmpPosCouleur[1] == tmpPosCouleur[3]) || (tmpPosCouleur[2] == tmpPosCouleur[3])){
+						Diamant diamant=new Diamant(x,y);
+						diamants[x][y]=diamant;
+					}
 					break;
 				default:
 					break;
@@ -60,10 +82,10 @@ public class Grille {
 	}
 	
 	public void afficherGrille(){
-		for (int i=0;i<diamants[0].length;i++){
-			for(int j=diamants.length-1;j>=0;j--){
-				char couleurdiamant=diamants[j][i].getCouleur();
-				if (diamants[j][i].isControled()){
+		for (int i=0;i<diamants.length;i++){
+			for(int j=0;j<diamants[i].length;j++){
+				char couleurdiamant=diamants[i][j].getCouleur();
+				if (diamants[i][j].isControled()){
 					couleurdiamant=Character.toUpperCase(couleurdiamant);
 				}
 				System.out.print(couleurdiamant);

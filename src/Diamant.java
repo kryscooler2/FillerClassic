@@ -7,7 +7,7 @@ public class Diamant {
 	private boolean controle;
 		
 	/*
-	 * Crée un diamant de couleur aléatoire
+	 * Constructeur
 	 */
 	public Diamant(int ppositionx, int ppositiony){
 		positionx=ppositionx;
@@ -20,13 +20,14 @@ public class Diamant {
 		
 	/*
 	 * Crée un diamant de couleur aléatoire
-	 */
+	 *
 	public Diamant( int ppositionx, int ppositiony, char pcouleur){
 		positionx=ppositionx;
 		positiony=ppositiony;
 		controle=false;
 		couleur=pcouleur;
 	}
+	*/
 	
 	/*
 	 * Retourne la couleur du diamant

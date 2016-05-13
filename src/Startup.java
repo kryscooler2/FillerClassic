@@ -38,8 +38,7 @@ public class Startup {
 		for (int i=0;i<nbrjoueur;i++){
 			System.out.println("Nom du joueur "  + String.valueOf(i + 1));
 			String nomJoueur = sc2.nextLine();
-			Joueur joueur = new Joueur(nomJoueur);
-			player[i]=joueur;
+			player[i] = new Joueur(nomJoueur);
 		}
 		
 		Grille grille1 = new Grille(player, 7, 7);
