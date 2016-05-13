@@ -5,7 +5,7 @@ public class Diamant {
 	private int positionx;
 	private int positiony;
 	private boolean controle;
-		
+	private char tabcorres[] = {'r','v','o','j','b','i'};
 	/*
 	 * Constructeur
 	 */
@@ -13,8 +13,7 @@ public class Diamant {
 		positionx=ppositionx;
 		positiony=ppositiony;
 		controle=false;
-		int couleurrand=(int)(Math.random()*6);			
-		char tabcorres[]={'r','v','o','j','b','i'};
+		int couleurrand=(int)(Math.random()*6);
 		couleur=tabcorres[couleurrand];
 	}
 		
@@ -32,7 +31,7 @@ public class Diamant {
 	/*
 	 * Retourne la couleur du diamant
 	 */
-	public char getCouleur(){
+	public char getCouleur(){	
 		return couleur;
 	}
 	
@@ -63,6 +62,10 @@ public class Diamant {
 	public void setContoled(char pcouleur) {
 		controle=true;
 		couleur=pcouleur;
+	}
+
+	public char[] RetourneTouteLesCouleurs() {
+		return tabcorres;
 	}
 }
 

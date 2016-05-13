@@ -4,12 +4,6 @@ public class Joueur {
 	private int scoretotal;
 	private Diamant[] controled;
 	
-	public Joueur(){
-		nom="inconnue";
-		score=0;
-		scoretotal=0;
-	}
-	
 	public Joueur(String pnom){
 		nom=pnom;
 		score=0;

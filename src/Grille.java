@@ -5,7 +5,7 @@ public class Grille {
 	
 	public Grille(Joueur[] joueur,int ligne, int colonne){
 		this.joueur 		= joueur;
-		this.diamants = new Diamant[ligne][colonne];
+		this.diamants 		= new Diamant[ligne][colonne];
 		char[] tmpPosCouleur = new char[4];
 		
 		for (int i=0;i<ligne;i++){
@@ -118,7 +118,52 @@ public class Grille {
 		
 		return partieFinie;*/return false;
 	}
+	
 
+
+	public char [] proposeCouleur(){
+		char c0 =diamants[diamants.length-1][0].getCouleur();
+		char c1=diamants[0][diamants[0].length-1].getCouleur();
+		
+		char c2=0;
+		
+		char c3 = 0;
+		
+		if (joueur.length <3) {
+			c2=c1;	
+			c3=c1;
+		}
+		
+		else if( joueur.length<4) {
+			c2=diamants[diamants.length-1][diamants[1].length-1].getCouleur();
+			c3=c1;
+		}
+		
+		else{
+			c3=diamants[0][diamants[1].length-1].getCouleur();		
+		}
+		
+		System.out.println(c0);
+			
+		System.out.println(c1);
+			
+		System.out.println(c2);
+			
+		System.out.println(c3);
+			
+			
+		char tab[]=diamants[0][0].RetourneTouteLesCouleurs();
+		char retour[] = new char[diamants[0][0].RetourneTouteLesCouleurs().length - joueur.length];
+		
+		for (int i=0; i<tab.length; i++){
+			if(tab[i]!=c0 && tab[i]!=c1 && tab[i]!=c2  && tab[i]!=c3)
+				retour[i] = tab[i];
+		}
+		
+		return retour;
+	}
+
+	
 	public void setPartieFinie(boolean partieFinie) {
 		this.partieFinie = partieFinie;
 	}

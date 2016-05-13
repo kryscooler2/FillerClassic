@@ -44,28 +44,39 @@ public class Startup {
 		Grille grille1 = new Grille(player, 7, 7);
 		continuer = true;
 		
-		while(!grille1.isPartieFinie() && continuer){
-			for(int i = 0; i < nbrjoueur; i++) {
-				boolean correct;
-				do {
-					System.out.println("C'est à " + player[i].getNom() + " de jouer :");
-					correct = grille1.setCoup(sc2.nextLine(), i);
-					if(correct){
-						grille1.afficherGrille();					
-					}
-					
-					else {
-						System.out.println("La couleur que vous avez tapé n'est pas correcte.");
-					}
-				} while(!correct);
+		while (continuer){
+			while(!grille1.isPartieFinie()){
+				for(int i = 0; i < nbrjoueur; i++) {
+					boolean correct;
+					do {
+						System.out.println("C'est à " + player[i].getNom() + " de jouer :");
+						System.out.print("Les couleurs disponibles sont : ");
+						char [] couleursDispo = grille1.proposeCouleur();
+						for(int k = 0; k < 6 - nbrjoueur; k++) {
+							System.out.print(couleursDispo[k] + " ");
+						}
+						correct = grille1.setCoup(sc2.nextLine(), i);
+						if(correct){
+							grille1.afficherGrille();					
+						}
+						
+						else {
+							System.out.println("La couleur que vous avez tapé n'est pas correcte.");
+						}
+					} while(!correct);
+				}
 			}
-		}
-		
-		/*for (int i=0;i<nbrjoueur;i++){
-			System.out.println("C'est à "  + player[i].getNom() + " de jouer");
-			sc2.nextLine();
-		}*/
 			
+			System.out.println("Rejouer? (O/N)");
+			String choix = sc2.nextLine();
+			
+			if(choix != "O" || choix != "o"){
+				System.out.println("Au revoir");
+				continuer = false;
+			}				
+		}
+			
+		
 		sc.close();
 		sc2.close();
 	}
