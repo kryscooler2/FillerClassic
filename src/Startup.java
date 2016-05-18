@@ -49,13 +49,14 @@ public class Startup {
 				for(int i = 0; i < nbrjoueur; i++) {
 					boolean correct;
 					do {
-						System.out.println("C'est à " + player[i].getNom() + " de jouer :");
 						System.out.print("Les couleurs disponibles sont : ");
 						char [] couleursDispo = grille1.proposeCouleur();
 						for(int k = 0; k < 6 - nbrjoueur; k++) {
 							System.out.print(couleursDispo[k] + " ");
 						}
-						correct = grille1.setCoup(sc2.nextLine(), i);
+						System.out.println("\nC'est à " + player[i].getNom() + " de jouer :");
+						
+						correct = grille1.setCoup((sc2.nextLine()).charAt(0), i);
 						if(correct){
 							grille1.afficherGrille();					
 						}

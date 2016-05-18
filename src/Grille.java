@@ -2,10 +2,11 @@ public class Grille {
 	private Diamant[][] diamants;
 	private Joueur[] joueur;
 	private boolean partieFinie;
-	
+	private char couleursDispo[];
+
 	public Grille(Joueur[] joueur,int ligne, int colonne){
-		this.joueur 		= joueur;
-		this.diamants 		= new Diamant[ligne][colonne];
+		this.joueur 		 = joueur;
+		this.diamants 		 = new Diamant[ligne][colonne];
 		char[] tmpPosCouleur = new char[4];
 		
 		for (int i=0;i<ligne;i++){
@@ -14,6 +15,8 @@ public class Grille {
 				diamants[i][j] = diamant1;
 			}
 		}
+		this.couleursDispo   = new char[diamants[0][0].RetourneTouteLesCouleurs().length - joueur.length];
+
 		for (int i=0;i<joueur.length;i++){//corrige les angles
 			int x=0;
 			int x1=0;
@@ -26,7 +29,6 @@ public class Grille {
 					y=0;
 					y1=1;
 					tmpPosCouleur[0] = diamants[x][y].getCouleur();
-					System.out.println("Case 0 :" + tmpPosCouleur[0]);
 					break;
 				case 1:
 					x=0;
@@ -143,24 +145,17 @@ public class Grille {
 			c3=diamants[0][diamants[1].length-1].getCouleur();		
 		}
 		
-		System.out.println(c0);
-			
-		System.out.println(c1);
-			
-		System.out.println(c2);
-			
-		System.out.println(c3);
-			
-			
 		char tab[]=diamants[0][0].RetourneTouteLesCouleurs();
-		char retour[] = new char[diamants[0][0].RetourneTouteLesCouleurs().length - joueur.length];
+		int j = 0;
 		
 		for (int i=0; i<tab.length; i++){
-			if(tab[i]!=c0 && tab[i]!=c1 && tab[i]!=c2  && tab[i]!=c3)
-				retour[i] = tab[i];
+			if(tab[i]!=c0 && tab[i]!=c1 && tab[i]!=c2  && tab[i]!=c3) {
+				this.couleursDispo[j] = tab[i];
+				j++;
+			}
 		}
 		
-		return retour;
+		return this.couleursDispo;
 	}
 
 	
@@ -179,41 +174,51 @@ public class Grille {
 	 * 
 	 */
 	
-	public boolean setCoup(String color, int indexJoueur) {
+	public boolean setCoup(char color, int indexJoueur) {
+		boolean correct = false;
+		for(int i = 0; i < couleursDispo.length; i++) {
+			if(couleursDispo[i] == color) {
+				correct = true;
+			}
+		}
+		
+		if(!correct)
+			return correct;
+		
 		switch(color) {
-			case "r":
+			case 'r':
 				nextPos(color, indexJoueur + 1);
 				break;
 				
-			case "v":
+			case 'v':
 				nextPos(color, indexJoueur + 1);
 				break;
 			
-			case "o":
+			case 'o':
 				nextPos(color, indexJoueur + 1);
 				break;
 			
-			case "j":
+			case 'j':
 				nextPos(color, indexJoueur + 1);
 				break;
 			
-			case "b":
+			case 'b':
 				nextPos(color, indexJoueur + 1);
 				break;
 			
-			case "i":
+			case 'i':
 				nextPos(color, indexJoueur + 1);
 				break;
 			
 			default :
-				// Erreur de saisie
-				return false;
+				correct = false;
+				return correct;
 		}
 		
-		return true;
+		return correct;
 	}
 
-	private void nextPos(String color, int indexJoueur) {
+	private void nextPos(char color, int indexJoueur) {
 		switch (indexJoueur) {
 			// Joueur 1
 			case 1:
