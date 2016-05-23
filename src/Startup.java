@@ -58,7 +58,7 @@ public class Startup {
 						
 						correct = grille1.setCoup((sc2.nextLine()).charAt(0), i);
 						if(correct){
-							grille1.afficherGrille();					
+							grille1.afficherGrille();
 						}
 						
 						else {

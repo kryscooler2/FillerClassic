@@ -222,11 +222,15 @@ public class Grille {
 		switch (indexJoueur) {
 			// Joueur 1
 			case 1:
-				// bas à droite
-				break;
-			// Joueur 1
-			case 2:
 				// bas à gauche
+				/*if()
+				{
+					
+				}*/
+				break;
+			// Joueur 2
+			case 2:
+				// haut à droite
 				break;
 		}
 	}

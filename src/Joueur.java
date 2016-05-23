@@ -24,4 +24,12 @@ public class Joueur {
 		score=pscore;
 		scoretotal=scoretotal + score;
 	}
+
+	public Diamant[] getControled() {
+		return controled;
+	}
+
+	public void setControled(Diamant[] controled) {
+		this.controled = controled;
+	}
 }
