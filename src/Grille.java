@@ -75,10 +75,9 @@ public class Grille {
 				diamants[x1][y1]=diamant1;
 			}
 			if (i<joueur.length){
-				diamants[x][y].setContoled(diamants[x][y].getCouleur());
+				joueur[i].setControled(diamants[x][y]);
 			}
 		}
-		//System.out.println(player[1].getNom());
 		afficherGrille();
 		//isPartieFinie();
 	}
@@ -87,9 +86,13 @@ public class Grille {
 		for (int i=0;i<diamants.length;i++){
 			for(int j=0;j<diamants[i].length;j++){
 				char couleurdiamant=diamants[i][j].getCouleur();
-				if (diamants[i][j].isControled()){
-					couleurdiamant=Character.toUpperCase(couleurdiamant);
+				for (int k = 0; k < joueur.length; k++) {
+					if (joueur[k].hasDiamant(diamants[i][j])){
+						couleurdiamant=Character.toUpperCase(couleurdiamant);
+						//System.out.println("Jouer " + k + "Score :" + joueur[k].getScoretotal() + "\nPosition couleur controlée : x: " + diamants[i][j].getPositionX() + " y:" + diamants[i][j].getPositionY());
+					}
 				}
+				
 				System.out.print(couleurdiamant);
 			}
 			System.out.println("");
@@ -187,27 +190,27 @@ public class Grille {
 		
 		switch(color) {
 			case 'r':
-				nextPos(color, indexJoueur + 1);
+				nouvelleCouleur(color, indexJoueur);
 				break;
 				
 			case 'v':
-				nextPos(color, indexJoueur + 1);
+				nouvelleCouleur(color, indexJoueur);
 				break;
 			
 			case 'o':
-				nextPos(color, indexJoueur + 1);
+				nouvelleCouleur(color, indexJoueur);
 				break;
 			
 			case 'j':
-				nextPos(color, indexJoueur + 1);
+				nouvelleCouleur(color, indexJoueur);
 				break;
 			
 			case 'b':
-				nextPos(color, indexJoueur + 1);
+				nouvelleCouleur(color, indexJoueur);
 				break;
 			
 			case 'i':
-				nextPos(color, indexJoueur + 1);
+				nouvelleCouleur(color, indexJoueur);
 				break;
 			
 			default :
@@ -218,20 +221,13 @@ public class Grille {
 		return correct;
 	}
 
-	private void nextPos(char color, int indexJoueur) {
-		switch (indexJoueur) {
-			// Joueur 1
-			case 1:
-				// bas à gauche
-				/*if()
-				{
-					
-				}*/
-				break;
-			// Joueur 2
-			case 2:
-				// haut à droite
-				break;
+	private void nouvelleCouleur(char color, int indexJoueur) {
+		Diamant[] diamantsControles = joueur[indexJoueur].getControledDiamants();
+		for(int i = 0; i < diamantsControles.length; i++) {
+			//System.out.println(diamantsControles[i].getPositionX() + " . y:" + diamantsControles[i].getPositionY());
+			if(color == diamants[diamantsControles[i].getPositionX() - 1][diamantsControles[i].getPositionY() + 1].getCouleur()) { // Diagonale droite
+				joueur[indexJoueur].setControled(diamants[diamantsControles[i].getPositionX() - 1][diamantsControles[i].getPositionY() + 1]);
+			}
 		}
 	}
 }

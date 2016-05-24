@@ -49,21 +49,6 @@ public class Diamant {
 		return positiony;
 	}
 		
-	/*
-	 * Dit si un diamant est contrôlé ou pas
-	 */
-	public boolean isControled(){
-		return controle;
-	}
-	
-	/*
-	 * Active le contrôle d'un diamant et change la couleur
-	 */
-	public void setContoled(char pcouleur) {
-		controle=true;
-		couleur=pcouleur;
-	}
-
 	public char[] RetourneTouteLesCouleurs() {
 		return tabcorres;
 	}

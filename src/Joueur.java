@@ -1,6 +1,6 @@
 public class Joueur {
 	private String nom;
-	private int score;//  ce score correspont au score du tour actuelle
+	private int score;//  ce score correspont au score du tour actuel
 	private int scoretotal;
 	private Diamant[] controled;
 	
@@ -24,12 +24,35 @@ public class Joueur {
 		score=pscore;
 		scoretotal=scoretotal + score;
 	}
+	
 
-	public Diamant[] getControled() {
-		return controled;
+	/*
+	 * Dit si un diamant est contrôlé ou pas, par le joueur
+	 */
+	
+	public boolean hasDiamant(Diamant diamant) {
+		boolean res = false;
+		int i = 0;
+		
+		do {
+			if(diamant.getPositionX() == controled[i].getPositionX() && diamant.getPositionY() == controled[i].getPositionY()) {
+				res = true;
+			}
+			i++;
+		} while (i < scoretotal && !res);
+
+		return res;
 	}
-
-	public void setControled(Diamant[] controled) {
-		this.controled = controled;
+	
+	/*
+	 * Active le contrôle d'un diamant et change la couleur
+	 */
+	public void setControled(Diamant controled) {
+		this.controled[scoretotal] = controled;
+		scoretotal++;
+	}
+	
+	public Diamant[] getControledDiamants() {
+		return controled;
 	}
 }
