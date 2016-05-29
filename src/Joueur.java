@@ -1,13 +1,17 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class Joueur {
 	private String nom;
 	private int score;//  ce score correspont au score du tour actuel
 	private int scoretotal;
-	private Diamant[] controled;
+	private List<Diamant> controled;
 	
 	public Joueur(String pnom){
 		nom=pnom;
 		score=0;
 		scoretotal=0;
+		controled = new ArrayList<>();
 	}
 	
 	public String getNom(){
@@ -35,7 +39,8 @@ public class Joueur {
 		int i = 0;
 		
 		do {
-			if(diamant.getPositionX() == controled[i].getPositionX() && diamant.getPositionY() == controled[i].getPositionY()) {
+			if(diamant.getPositionX() == controled.get(i).getPositionX() &&
+					diamant.getPositionY() == controled.get(i).getPositionY()) {
 				res = true;
 			}
 			i++;
@@ -48,11 +53,11 @@ public class Joueur {
 	 * Active le contrôle d'un diamant et change la couleur
 	 */
 	public void setControled(Diamant controled) {
-		this.controled[scoretotal] = controled;
+		this.controled.add(controled);
 		scoretotal++;
 	}
 	
-	public Diamant[] getControledDiamants() {
+	public List<Diamant> getControledDiamants() {
 		return controled;
 	}
 }

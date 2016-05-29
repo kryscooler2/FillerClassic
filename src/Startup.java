@@ -55,10 +55,11 @@ public class Startup {
 							System.out.print(couleursDispo[k] + " ");
 						}
 						System.out.println("\nC'est à " + player[i].getNom() + " de jouer :");
-						
+						System.out.println(i);
+
 						correct = grille1.setCoup((sc2.nextLine()).charAt(0), i);
 						if(correct){
-							grille1.afficherGrille();
+							grille1.afficherGrille(i);
 						}
 						
 						else {
