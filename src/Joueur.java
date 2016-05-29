@@ -38,6 +38,7 @@ public class Joueur {
 		boolean res = false;
 		int i = 0;
 		
+		// On compare les positions des 
 		do {
 			if(diamant.getPositionX() == controled.get(i).getPositionX() &&
 					diamant.getPositionY() == controled.get(i).getPositionY()) {
@@ -52,8 +53,8 @@ public class Joueur {
 	/*
 	 * Active le contrôle d'un diamant et change la couleur
 	 */
-	public void setControled(Diamant controled) {
-		this.controled.add(controled);
+	public void setControled(Diamant newDiamant) {
+		this.controled.add(newDiamant);
 		scoretotal++;
 	}
 	

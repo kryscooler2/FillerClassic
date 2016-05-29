@@ -80,9 +80,30 @@ public class Grille {
 				joueur[i].setControled(diamants[x][y]);
 			}
 		}
-		afficherGrille(0); // C'est forcément au joueur 1 de jouer
+		afficherGrille(); // Le premier affichage (basique) avec l'étoile à côté du joueur 1 
 		//isPartieFinie();
 	}
+	
+	public void afficherGrille(){
+
+		for (int i=0;i<diamants.length;i++){
+			for(int j=0;j<diamants[i].length;j++){
+				char couleurdiamant=diamants[i][j].getCouleur();
+				for (int k = 0; k < joueur.length; k++) {
+					if (joueur[k].hasDiamant(diamants[i][j])){
+						couleurdiamant=Character.toUpperCase(couleurdiamant);
+					}
+				}
+					
+				// Joueur 1
+					System.out.print(couleurdiamant + "  ");
+				
+			}
+			
+			System.out.println("");
+		}
+	}
+
 	
 	public void afficherGrille(int indexJoueurActuel){
 
@@ -94,7 +115,7 @@ public class Grille {
 						couleurdiamant=Character.toUpperCase(couleurdiamant);
 					}
 				}
-							
+					
 				// Joueur 1
 				if(indexJoueurActuel == 0 && i == diamants.length - 1 && j == 0) {
 					System.out.print(couleurdiamant + "* ");
@@ -110,7 +131,7 @@ public class Grille {
 					System.out.print(couleurdiamant + "* ");
 				}
 				
-				// Joueur 4
+				// Joueur 4	
 				else if(indexJoueurActuel == 3 && i == 0 && j == 0) {
 					System.out.print(couleurdiamant + "* ");
 				}
@@ -246,15 +267,13 @@ public class Grille {
 	}
 
 	private void nouvelleCouleur(char color, int indexJoueur) {
-		List<Diamant> diamantsControles = joueur[indexJoueur].getControledDiamants();
-		for(int i = 0; i < diamantsControles.size(); i++) {
-			//System.out.println(diamantsControles[i].getPositionX() + " . y:" + diamantsControles[i].getPositionY());
-			if(color == diamants[diamantsControles.get(i).getPositionX() - 1]
-					[diamantsControles.get(i).getPositionY() + 1].getCouleur()) { // Diagonale droite
-				joueur[indexJoueur].setControled(
-				diamants[diamantsControles.get(i).getPositionX() - 1]
-						[diamantsControles.get(i).getPositionY() + 1]);
-			}
-		}
+//		List<Diamant> diamantsControles = joueur[indexJoueur].getControledDiamants();
+//		for(int i = 0; i < diamantsControles.size(); i++) {
+//			//System.out.println(diamantsControles[i].getPositionX() + " . y:" + diamantsControles[i].getPositionY());
+//			if(color == diamants[diamantsControles.get(i).getPositionX() - 1][diamantsControles.get(i).getPositionY() + 1].getCouleur()) { // Diagonale en haut à droite
+//				joueur[indexJoueur].setControled(
+//				diamants[diamantsControles.get(i).getPositionX() - 1] [diamantsControles.get(i).getPositionY() + 1]);
+//			}
+//		}
 	}
 }
