@@ -28,6 +28,10 @@ public class Diamant {
 	}
 	*/
 	
+	public void setCouleur(char couleur){	
+		this.couleur = couleur;
+	}
+	
 	/*
 	 * Retourne la couleur du diamant
 	 */

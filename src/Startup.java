@@ -42,11 +42,12 @@ public class Startup {
 		}
 		
 		Grille grille1 = new Grille(player, 7, 7);
+		boolean premierTour = true;
 		continuer = true;
 		
 		while (continuer){
-			while(!grille1.isPartieFinie()){
-				for(int i = 0; i < nbrjoueur; i++) {
+			while(!grille1.isPartieFinie()){				// Penser à inverser les deux lignes
+				for(int i = 0; i < nbrjoueur; i++) {		// Penser à inverser les deux lignes
 					boolean correct;
 					do {
 						System.out.print("Les couleurs disponibles sont : ");
@@ -59,7 +60,14 @@ public class Startup {
 
 						correct = grille1.setCoup((sc2.nextLine()).charAt(0), i);
 						if(correct){
-							grille1.afficherGrille(i);
+							if(premierTour){
+								grille1.afficherGrille(i + 1);
+								premierTour = false;
+							}
+							else {
+								grille1.afficherGrille(i - 1);
+								premierTour = true;
+							}
 						}
 						
 						else {
