@@ -20,15 +20,14 @@ public class Joueur {
 	public int getScore(){
 		return score;
 	}
-	public int getScoretotal(){
-		return scoretotal;
+	
+	public double getScoreTotalPercent(){
+		return (scoretotal * 100) / (Grille.ligne * Grille.colonne);
 	}
 	
-	public void modifscore(int pscore){
-		score=pscore;
-		scoretotal=scoretotal + score;
+	public void setScore(int nombreDiamantsGagnes) {
+		score = nombreDiamantsGagnes;
 	}
-	
 
 	/*
 	 * Dit si un diamant est contrôlé ou pas, par le joueur
@@ -40,12 +39,12 @@ public class Joueur {
 		
 		// On compare les positions des 
 		do {
-			if(diamant.getPositionX() == controled.get(i).getPositionX() &&
+				if(diamant.getPositionX() == controled.get(i).getPositionX() &&
 					diamant.getPositionY() == controled.get(i).getPositionY()) {
 				res = true;
 			}
 			i++;
-		} while (i < scoretotal && !res);
+		} while (i < controled.size() && !res);
 
 		return res;
 	}

@@ -5,16 +5,27 @@ public class Grille {
 	private Joueur[] joueur;
 	private boolean partieFinie;
 	private char couleursDispo[];
+	public static int ligne;
+	public static int colonne;
 
 	public Grille(Joueur[] joueur,int ligne, int colonne){
 		this.joueur 		 = joueur;
+		Grille.ligne		 = ligne;
+		Grille.colonne		 = colonne;
 		this.diamants 		 = new Diamant[ligne][colonne];
 		char[] tmpPosCouleur = new char[4];
+		int pair 			 = 0;
 		
 		for (int i=0;i<ligne;i++){
-			for (int j=0;j<colonne;j++){
+			for (int j=0;j<colonne - pair;j++){
 				Diamant diamant1 = new Diamant(i,j);
 				diamants[i][j] = diamant1;
+				if(pair == 0) {
+					pair = 1;
+				}
+				else {
+					pair = 0;
+				}
 			}
 		}
 		this.couleursDispo   = new char[diamants[0][0].RetourneTouteLesCouleurs().length - joueur.length];
@@ -85,9 +96,9 @@ public class Grille {
 	}
 	
 	public void afficherGrille(int indexJoueurActuel){
-
+		int pair = 0;
 		for (int i=0;i<diamants.length;i++){
-			for(int j=0;j<diamants[i].length;j++){
+			for(int j=0;j<diamants[i].length - pair;j++){
 				char couleurdiamant=diamants[i][j].getCouleur();
 				for (int k = 0; k < joueur.length; k++) {
 					if (joueur[k].hasDiamant(diamants[i][j])){
@@ -116,36 +127,36 @@ public class Grille {
 				}
 				
 				else {
-					System.out.print("<" + couleurdiamant + ">  ");
+					if(Character.isUpperCase(couleurdiamant)){
+						System.out.print("<" + couleurdiamant + ">  ");
+					}
+					else{
+						System.out.print(couleurdiamant + "    ");
+					}
 				}
 			}
 			System.out.println("");
-			
-			
-			/*for (int j=0;j<diamants.length;j++){
-				System.out.print("_");
-			}
-			System.out.println("");*/
 		}
 	}
 
 	public boolean isPartieFinie() {
-		/*int nombreDiamants = diamants.length * diamants[0].length;
-		
 		for(int i = 0; i < joueur.length; i++) {
 			switch(joueur.length) {
 				case 2:
+					partieFinie = joueur[i].getScoreTotalPercent() < 50 ? false : true;
 					break;
 				
 				case 3:
+					partieFinie = joueur[i].getScoreTotalPercent() < 34 ? false : true;
 					break;
 				
 				case 4:
+					partieFinie = joueur[i].getScoreTotalPercent() < 25 ? false : true;
 					break;
 			}
 		}
 		
-		return partieFinie;*/return false;
+		return partieFinie;
 	}
 	
 
@@ -247,7 +258,8 @@ public class Grille {
 
 	private void nouvelleCouleur(char color, int indexJoueur) {
 		List<Diamant> diamantsControles = joueur[indexJoueur].getControledDiamants();
-		
+		int nombreDiamantsGagnes = 0;
+
 		// On change la couleur de tous les diamants contrôlés
 		for(int i = 0; i < diamantsControles.size(); i++) {
 			diamantsControles.get(i).setCouleur(color);
@@ -270,6 +282,7 @@ public class Grille {
 					// Si le diamant n'est pas déjà contrôlé
 					if(!joueur[indexJoueur].hasDiamant(hautGauche)) {
 						joueur[indexJoueur].setControled(hautGauche);
+						nombreDiamantsGagnes++;
 					}
 				}
 			}
@@ -283,6 +296,7 @@ public class Grille {
 					// Si le diamant n'est pas déjà contrôlé
 					if(!joueur[indexJoueur].hasDiamant(hautDroite)) {
 						joueur[indexJoueur].setControled(hautDroite);
+						nombreDiamantsGagnes++;
 					}
 				}
 			}
@@ -296,6 +310,7 @@ public class Grille {
 					// Si le diamant n'est pas déjà contrôlé
 					if(!joueur[indexJoueur].hasDiamant(basGauche)) {
 						joueur[indexJoueur].setControled(basGauche);
+						nombreDiamantsGagnes++;
 					}
 				}
 			}
@@ -310,6 +325,7 @@ public class Grille {
 					// Si le diamant n'est pas déjà contrôlé
 					if(!joueur[indexJoueur].hasDiamant(basDroite)) {
 						joueur[indexJoueur].setControled(basDroite);
+						nombreDiamantsGagnes++;
 					}
 				}
 			}
@@ -323,6 +339,7 @@ public class Grille {
 					// Si le diamant n'est pas déjà contrôlé
 					if(!joueur[indexJoueur].hasDiamant(hautDroite)) {
 						joueur[indexJoueur].setControled(hautDroite);
+						nombreDiamantsGagnes++;
 					}
 				}
 					
@@ -330,6 +347,7 @@ public class Grille {
 					// Si le diamant n'est pas déjà contrôlé
 					if(!joueur[indexJoueur].hasDiamant(basDroite)) {
 						joueur[indexJoueur].setControled(basDroite);
+						nombreDiamantsGagnes++;
 					}
 				}
 			}
@@ -343,6 +361,7 @@ public class Grille {
 					// Si le diamant n'est pas déjà contrôlé
 					if(!joueur[indexJoueur].hasDiamant(hautGauche)) {
 						joueur[indexJoueur].setControled(hautGauche);
+						nombreDiamantsGagnes++;
 					}
 				}
 					
@@ -350,6 +369,7 @@ public class Grille {
 					// Si le diamant n'est pas déjà contrôlé
 					if(!joueur[indexJoueur].hasDiamant(basGauche)) {
 						joueur[indexJoueur].setControled(basGauche);
+						nombreDiamantsGagnes++;
 					}
 				}
 			}
@@ -363,6 +383,7 @@ public class Grille {
 					// Si le diamant n'est pas déjà contrôlé
 					if(!joueur[indexJoueur].hasDiamant(basDroite)) {
 						joueur[indexJoueur].setControled(basDroite);
+						nombreDiamantsGagnes++;
 					}
 				}
 					
@@ -370,6 +391,7 @@ public class Grille {
 					// Si le diamant n'est pas déjà contrôlé
 					if(!joueur[indexJoueur].hasDiamant(basGauche)) {
 						joueur[indexJoueur].setControled(basGauche);
+						nombreDiamantsGagnes++;
 					}
 				}
 			}
@@ -383,6 +405,7 @@ public class Grille {
 					// Si le diamant n'est pas déjà contrôlé
 					if(!joueur[indexJoueur].hasDiamant(hautGauche)) {
 						joueur[indexJoueur].setControled(hautGauche);
+						nombreDiamantsGagnes++;
 					}
 				}
 				
@@ -390,6 +413,7 @@ public class Grille {
 					// Si le diamant n'est pas déjà contrôlé
 					if(!joueur[indexJoueur].hasDiamant(hautDroite)) {
 						joueur[indexJoueur].setControled(hautDroite);
+						nombreDiamantsGagnes++;
 					}
 				}
 			}
@@ -404,6 +428,7 @@ public class Grille {
 					// Si le diamant n'est pas déjà contrôlé
 					if(!joueur[indexJoueur].hasDiamant(basDroite)) {
 						joueur[indexJoueur].setControled(basDroite);
+						nombreDiamantsGagnes++;
 					}
 				}
 					
@@ -411,6 +436,7 @@ public class Grille {
 					// Si le diamant n'est pas déjà contrôlé
 					if(!joueur[indexJoueur].hasDiamant(basGauche)) {
 						joueur[indexJoueur].setControled(basGauche);
+						nombreDiamantsGagnes++;
 					}
 				}
 				
@@ -418,6 +444,7 @@ public class Grille {
 					// Si le diamant n'est pas déjà contrôlé
 					if(!joueur[indexJoueur].hasDiamant(hautGauche)) {
 						joueur[indexJoueur].setControled(hautGauche);
+						nombreDiamantsGagnes++;
 					}
 				}
 				
@@ -425,9 +452,12 @@ public class Grille {
 					// Si le diamant n'est pas déjà contrôlé
 					if(!joueur[indexJoueur].hasDiamant(hautDroite)) {
 						joueur[indexJoueur].setControled(hautDroite);
+						nombreDiamantsGagnes++;
 					}
 				}
 			}
 		}
+		
+		joueur[indexJoueur].setScore(nombreDiamantsGagnes);
 	}
 }

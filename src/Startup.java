@@ -41,31 +41,39 @@ public class Startup {
 			player[i] = new Joueur(nomJoueur);
 		}
 		
-		Grille grille1 = new Grille(player, 7, 7);
+		Grille grille1 = new Grille(player, 5, 5);
 		boolean premierTour = true;
 		continuer = true;
 		
 		while (continuer){
+			int i = 0;
 			while(!grille1.isPartieFinie()){				// Penser à inverser les deux lignes
-				for(int i = 0; i < nbrjoueur; i++) {		// Penser à inverser les deux lignes
+				if(i == player.length) {
+					i = 0;
+				}
 					boolean correct;
 					do {
-						System.out.print("Les couleurs disponibles sont : ");
+						System.out.print("\nLes couleurs disponibles pour " + player[i].getNom() +" sont : ");
 						char [] couleursDispo = grille1.proposeCouleur();
 						for(int k = 0; k < 6 - nbrjoueur; k++) {
 							System.out.print(couleursDispo[k] + " ");
 						}
-						System.out.println("\nC'est à " + player[i].getNom() + " de jouer :");
+						System.out.println("\nScore : " + player[i].getScoreTotalPercent() + "%");
+						System.out.println("C'est à vous de jouer :");
 						//System.out.println(i);
 
 						correct = grille1.setCoup((sc2.nextLine()).charAt(0), i);
 						if(correct){
+							System.out.println("Vous avez gagné " + player[i].getScore() + " diamant" +
+							((player[i].getScore() == 1) ? "" : "s") + " \n\n");
+							
+							// Régler l'histoire de l'étoile pour plusieurs joueurs
 							if(premierTour){
-								grille1.afficherGrille(i + 1);
+								grille1.afficherGrille(i + (nbrjoueur - 1));
 								premierTour = false;
 							}
 							else {
-								grille1.afficherGrille(i - 1);
+								grille1.afficherGrille(i - (nbrjoueur - 1));
 								premierTour = true;
 							}
 						}
@@ -74,8 +82,9 @@ public class Startup {
 							System.out.println("La couleur que vous avez tapé n'est pas correcte.");
 						}
 					} while(!correct);
+					i++;
 				}
-			}
+			
 			
 			System.out.println("Rejouer? (O/N)");
 			String choix = sc2.nextLine();
