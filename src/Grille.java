@@ -20,12 +20,12 @@ public class Grille {
 			for (int j=0;j<colonne - pair;j++){
 				Diamant diamant1 = new Diamant(i,j);
 				diamants[i][j] = diamant1;
-				if(pair == 0) {
-					pair = 1;
-				}
-				else {
-					pair = 0;
-				}
+			}
+			if(pair == 0) {
+				pair = 1;
+			}
+			else {
+				pair = 0;
 			}
 		}
 		this.couleursDispo   = new char[diamants[0][0].RetourneTouteLesCouleurs().length - joueur.length];
@@ -40,7 +40,7 @@ public class Grille {
 					x=ligne-1;
 					x1=ligne-2;
 					y=0;
-					y1=1;
+					y1=0;
 					tmpPosCouleur[0] = diamants[x][y].getCouleur();
 					break;
 				case 1:
@@ -72,7 +72,7 @@ public class Grille {
 					x=0;
 					x1=1;
 					y=0;
-					y1=1;
+					y1=0;
 					tmpPosCouleur[3] = diamants[x][y].getCouleur();
 					
 					while ((tmpPosCouleur[0] == tmpPosCouleur[3]) || (tmpPosCouleur[1] == tmpPosCouleur[3]) || (tmpPosCouleur[2] == tmpPosCouleur[3])){
@@ -127,13 +127,15 @@ public class Grille {
 				}
 				
 				else {
-					if(Character.isUpperCase(couleurdiamant)){
-						System.out.print("<" + couleurdiamant + ">  ");
-					}
-					else{
-						System.out.print(couleurdiamant + "    ");
-					}
+					System.out.print(pair == 0 ? "<" + couleurdiamant + ">  " : "  <" + couleurdiamant + ">");
 				}
+			}
+			
+			if(pair == 0) {
+				pair = 1;
+			}
+			else {
+				pair = 0;
 			}
 			System.out.println("");
 		}
@@ -273,7 +275,7 @@ public class Grille {
 			
 			//System.out.println(diamantsControles[i].getPositionX() + " . y:" + diamantsControles[i].getPositionY());
 
-			// Si on n'est pas dans le coin en bas à droite
+			// Si on est dans le coin en bas à droite
 			if (diamantsControles.get(i).getPositionX() == diamants.length - 1 && diamantsControles.get(i).getPositionY() == diamants.length - 1)
 			{
 				hautGauche = diamants[diamantsControles.get(i).getPositionX() - 1][diamantsControles.get(i).getPositionY() - 1];
@@ -287,10 +289,10 @@ public class Grille {
 				}
 			}
 			
-			// Si on n'est pas dans le coin en bas à gauche
+			// Si on est dans le coin en bas à gauche
 			else if (diamantsControles.get(i).getPositionX() == diamants.length - 1 && diamantsControles.get(i).getPositionY() == 0)
 			{
-				hautDroite = diamants[diamantsControles.get(i).getPositionX() - 1][diamantsControles.get(i).getPositionY() + 1];
+				hautDroite = diamants[diamantsControles.get(i).getPositionX() - 1][diamantsControles.get(i).getPositionY()];
 				
 				if(color == hautDroite.getCouleur()) {
 					// Si le diamant n'est pas déjà contrôlé
@@ -301,7 +303,7 @@ public class Grille {
 				}
 			}
 			
-			// Si on n'est pas dans le coin en haut à droite
+			// Si on est dans le coin en haut à droite
 			else if (diamantsControles.get(i).getPositionX() == 0 && diamantsControles.get(i).getPositionY() == diamants.length - 1)
 			{
 				basGauche  = diamants[diamantsControles.get(i).getPositionX() + 1][diamantsControles.get(i).getPositionY() - 1];
@@ -319,7 +321,7 @@ public class Grille {
 			// Si on n'est pas dans le coin en haut à gauche
 			else if (diamantsControles.get(i).getPositionX() == 0 && diamantsControles.get(i).getPositionY() == 0)
 			{
-				basDroite  = diamants[diamantsControles.get(i).getPositionX() + 1][diamantsControles.get(i).getPositionY() + 1];
+				basDroite  = diamants[diamantsControles.get(i).getPositionX() + 1][diamantsControles.get(i).getPositionY()];
 										
 				if(color == basDroite.getCouleur()) {
 					// Si le diamant n'est pas déjà contrôlé
@@ -331,10 +333,26 @@ public class Grille {
 			}
 				
 			// La colonne de gauche sauf les coins
-			else if(diamantsControles.get(i).getPositionY() == 0 && (diamantsControles.get(i).getPositionX() != 0 || diamantsControles.get(i).getPositionX() != diamants.length - 1)){
-				hautDroite = diamants[diamantsControles.get(i).getPositionX() - 1][diamantsControles.get(i).getPositionY() + 1];
-				basDroite  = diamants[diamantsControles.get(i).getPositionX() + 1][diamantsControles.get(i).getPositionY() + 1];
-					
+			else if(diamantsControles.get(i).getPositionY() == 0 && (diamantsControles.get(i).getPositionX() != 0 || 
+			diamantsControles.get(i).getPositionX() != diamants.length - 1)){
+				hautDroite = diamants[diamantsControles.get(i).getPositionX() - 1][diamantsControles.get(i).getPositionY() +
+				   (diamantsControles.get(i).getPositionX()%  2 == 0 ? 0 : 1)];
+				basDroite  = diamants[diamantsControles.get(i).getPositionX() + 1][diamantsControles.get(i).getPositionY()+ 
+				   (diamantsControles.get(i).getPositionX()%  2 == 0 ? 0 : 1)];
+				
+				// Quand on est impair on peut viser en haut à gauche
+				if(diamantsControles.get(i).getPositionX()%  2 != 0) {
+					hautGauche = diamants[diamantsControles.get(i).getPositionX() - 1][diamantsControles.get(i).getPositionY()];
+				
+					if(color == hautGauche.getCouleur()) { // Diagonale en haut à gauche
+						// Si le diamant n'est pas déjà contrôlé
+						if(!joueur[indexJoueur].hasDiamant(hautGauche)) {
+							joueur[indexJoueur].setControled(hautGauche);
+							nombreDiamantsGagnes++;
+						}
+					}
+				}
+				
 				if(color == hautDroite.getCouleur()) { // Diagonale en haut à droite
 					// Si le diamant n'est pas déjà contrôlé
 					if(!joueur[indexJoueur].hasDiamant(hautDroite)) {
@@ -353,7 +371,9 @@ public class Grille {
 			}
 				
 			// La colonne de droite sauf les coins
-			else if(diamantsControles.get(i).getPositionY() == diamants.length - 1  && (diamantsControles.get(i).getPositionX() != 0 || diamantsControles.get(i).getPositionX() != diamants.length - 1)){
+			else if(diamantsControles.get(i).getPositionY() == diamants.length - 1 && (diamantsControles.get(i).getPositionX() != 0 ||
+			diamantsControles.get(i).getPositionX() != diamants.length - 1)
+			&& diamantsControles.get(i).getPositionX()%  2 == 0){
 				basGauche  = diamants[diamantsControles.get(i).getPositionX() + 1][diamantsControles.get(i).getPositionY() - 1];
 				hautGauche = diamants[diamantsControles.get(i).getPositionX() - 1][diamantsControles.get(i).getPositionY() - 1];
 					
@@ -419,10 +439,15 @@ public class Grille {
 			}
 			
 			else {
-				hautDroite = diamants[diamantsControles.get(i).getPositionX() - 1][diamantsControles.get(i).getPositionY() + 1];
-				hautGauche = diamants[diamantsControles.get(i).getPositionX() - 1][diamantsControles.get(i).getPositionY() - 1];
-				basGauche  = diamants[diamantsControles.get(i).getPositionX() + 1][diamantsControles.get(i).getPositionY() - 1];
-				basDroite  = diamants[diamantsControles.get(i).getPositionX() + 1][diamantsControles.get(i).getPositionY() + 1];
+				hautDroite = diamants[diamantsControles.get(i).getPositionX() - 1][diamantsControles.get(i).getPositionY()
+				  + (diamantsControles.get(i).getPositionY() % 2 == 0 ? 0 : 1)];
+				hautGauche = diamants[diamantsControles.get(i).getPositionX()][diamantsControles.get(i).getPositionY()
+				  - (diamantsControles.get(i).getPositionY() % 2 == 0 ? 1 : 0)];
+				basGauche  = diamants[diamantsControles.get(i).getPositionX() + 1][diamantsControles.get(i).getPositionY()
+				  - (diamantsControles.get(i).getPositionY() % 2 == 0 ? 1 : 0)];
+				//TODO erreur ici
+				basDroite  = diamants[diamantsControles.get(i).getPositionX() + 1][diamantsControles.get(i).getPositionY()
+				  + (diamantsControles.get(i).getPositionY() % 2 == 0 ? 0 : 1)];
 				
 				if(color == basDroite.getCouleur()) { // Diagonale en haut à droite
 					// Si le diamant n'est pas déjà contrôlé
