@@ -6,6 +6,7 @@ public class Diamant {
 	private int positiony;
 	private boolean controle;
 	private char tabcorres[] = {'r','v','o','j','b','i'};
+	
 	/*
 	 * Constructeur
 	 */
