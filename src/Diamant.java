@@ -4,7 +4,6 @@ public class Diamant {
 	private char couleur;
 	private int positionx;
 	private int positiony;
-	private boolean controle;
 	private char tabcorres[] = {'r','v','o','j','b','i'};
 	
 	/*
@@ -13,22 +12,13 @@ public class Diamant {
 	public Diamant(int ppositionx, int ppositiony){
 		positionx=ppositionx;
 		positiony=ppositiony;
-		controle=false;
 		int couleurrand=(int)(Math.random()*6);
 		couleur=tabcorres[couleurrand];
 	}
-		
+
 	/*
-	 * Crée un diamant de couleur aléatoire
-	 *
-	public Diamant( int ppositionx, int ppositiony, char pcouleur){
-		positionx=ppositionx;
-		positiony=ppositiony;
-		controle=false;
-		couleur=pcouleur;
-	}
-	*/
-	
+	 * Définit la couleur d'un diamant
+	 */
 	public void setCouleur(char couleur){	
 		this.couleur = couleur;
 	}

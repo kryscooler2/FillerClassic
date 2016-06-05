@@ -20,10 +20,10 @@ public class Startup {
 			System.out.println("1. Deux joueurs");
 			System.out.println("2. Trois joueurs");
 			System.out.println("3. Quatre joueurs");
-
+			
 			nbrjoueur = sc.nextInt();
 			try{
-				if(nbrjoueur >= 1 && nbrjoueur <= 3)
+				if(nbrjoueur >= 1 && nbrjoueur <= 4)
 				{
 					continuer = false;
 					nbrjoueur++;
@@ -41,12 +41,14 @@ public class Startup {
 			player[i] = new Joueur(nomJoueur);
 		}
 		
-		Grille grille1 = new Grille(player, 13, 13);
+		System.out.println("Choisissez la taille de grille que vous voulez");
+		int tailleGrille = sc.nextInt();
+		Grille grille1 = new Grille(player, tailleGrille, tailleGrille);
 		continuer = true;
 		
 		while (continuer){
 			int i = 0;
-			while(grille1.isPartieFinie()){
+			while(!grille1.isPartieFinie()){
 				if(i == player.length) {
 					i = 0;
 				}
